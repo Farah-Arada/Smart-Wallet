@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@layer components {
+  .dark {
+    color-scheme: dark;
+  }
+}
