@@ -5,11 +5,11 @@ import {
 
 import API from '../utils/api';
 
-import StatCard           from './components/StatCard';
-import UsageBar           from './components/UsageBar';
-import DeleteConfirmModal from './components/DeleteConfirModal';
-import TransactionForm    from './components/TransactionForm';
-import TransactionsTable  from './components/TransactionsTable';
+import StatCard           from '../components/StatCard';
+import UsageBar           from '../components/UsageBar';
+import DeleteConfirmModal from '../components/DeleteConfirModal';
+import TransactionForm    from '../components/TransactionForm';
+import TransactionsTable  from '../components/TransactionsTable';
 
 import { CheckCircle, XCircle } from 'lucide-react';
 
