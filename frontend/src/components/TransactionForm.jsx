@@ -70,7 +70,7 @@ export default function TransactionForm({
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
           {editingTx ? <Pencil className="w-6 h-6 text-orange-500" /> : <PlusCircle className="w-6 h-6 text-blue-600" />}
-          {editingTx ? safeT('editTransaction') || 'Edit Transaction' : safeT('newTransaction')}
+          {editingTx ? safeT('editTransaction') || 'تعديل الحركة' : safeT('newTransaction')}
         </h2>
         
         {editingTx && (
@@ -118,9 +118,9 @@ export default function TransactionForm({
               step="0.01"
               value={formData.amount}
               onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-              className="w-full pe-12 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white leading-normal"
+              className="w-full h-12 ps-4 pe-12 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
             />
-            <span className="absolute end-4 top-3.5 text-gray-500 font-medium pointer-events-none">{safeT('currency')}</span>
+            <span className="absolute end-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium pointer-events-none">{safeT('currency')}</span>
           </div>
         </div>
 
@@ -131,7 +131,7 @@ export default function TransactionForm({
             required
             value={formData.date}
             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-            className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white leading-normal"
+            className="w-full h-12 px-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
           />
         </div>
 
@@ -142,7 +142,7 @@ export default function TransactionForm({
             required
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white leading-normal"
+            className="w-full h-12 px-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
           />
         </div>
 
@@ -154,17 +154,17 @@ export default function TransactionForm({
               required
               value={formData.location}
               onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-              className="w-full ps-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white leading-normal"
+              className="w-full h-12 ps-10 pe-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
             />
-            <span className="absolute start-3 top-3.5 text-gray-400 pointer-events-none">{labels.icon}</span>
+            <span className="absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">{labels.icon}</span>
           </div>
         </div>
 
         <button
           type="submit"
-          className={`w-full text-white font-bold py-3.5 rounded-xl shadow-sm flex justify-center items-center gap-2 ${editingTx ? 'bg-orange-500 hover:bg-orange-600' : 'bg-blue-600 hover:bg-blue-700'}`}
+          className={`w-full h-12 text-white font-bold rounded-xl shadow-sm flex justify-center items-center gap-2 ${editingTx ? 'bg-orange-500 hover:bg-orange-600' : 'bg-blue-600 hover:bg-blue-700'}`}
         >
-          {editingTx ? (safeT('updateBtn') || 'Update') : safeT('addBtn')} {labels.title}
+          {editingTx ? (safeT('updateBtn') || 'تحديث') : safeT('addBtn')} {labels.title}
         </button>
       </form>
     </div>
