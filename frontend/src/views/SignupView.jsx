@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Mail, Lock, User, Eye, EyeOff, Loader2, Wallet } from 'lucide-react';
 
-const API = 'https://srv-d7kmh4km0tmc73aodc70.onrender.com/api';
+const API = 'https://smart-wallet-cftx.onrender.com/api';
 
 function PasswordStrength({ password, t }) {
   if (!password) return null;
