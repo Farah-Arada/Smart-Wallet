@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Wallet, Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 
-import API from '../utils/api';
+const API = 'https://srv-d7kmh4km0tmc73aodc70.onrender.com/api';
 
 export default function LoginView({ setView = () => {}, setCurrentUser = () => {}, t = (k) => String(k) }) {
   const safeT = (key) => {
@@ -86,28 +86,30 @@ export default function LoginView({ setView = () => {}, setCurrentUser = () => {
               autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full ltr:pl-10 rtl:pr-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all placeholder:text-gray-400"
+              className="w-full ps-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all placeholder:text-gray-400"
             />
-            <Mail className="w-5 h-5 text-gray-400 absolute rtl:right-3 ltr:left-3 top-3.5 pointer-events-none" />
+
+            <Mail className="w-5 h-5 text-gray-400 absolute start-3 top-3.5 pointer-events-none" />
           </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{safeT('password')}</label>
           <div className="relative">
+
             <input
               type={showPass ? 'text' : 'password'}
               required
               autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full ltr:pl-10 rtl:pr-10 ltr:pr-11 rtl:pl-11 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
+              className="w-full ps-10 pe-11 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
             />
-            <Lock className="w-5 h-5 text-gray-400 absolute rtl:right-3 ltr:left-3 top-3.5 pointer-events-none" />
+            <Lock className="w-5 h-5 text-gray-400 absolute start-3 top-3.5 pointer-events-none" />
             <button
               type="button"
               onClick={() => setShowPass(!showPass)}
-              className="absolute rtl:left-3 ltr:right-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="absolute end-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               {showPass ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </button>
