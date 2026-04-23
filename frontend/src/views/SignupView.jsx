@@ -25,14 +25,14 @@ function PasswordStrength({ password, t }) {
 }
 
 export default function SignupView({ setView, t }) {
-  const [username, setUsername]       = useState('');
-  const [email, setEmail]             = useState('');
-  const [password, setPassword]       = useState('');
-  const [confirm, setConfirm]         = useState('');
-  const [showPass, setShowPass]       = useState(false);
+  const [username, setUsername]     = useState('');
+  const [email, setEmail]           = useState('');
+  const [password, setPassword]     = useState('');
+  const [confirm, setConfirm]       = useState('');
+  const [showPass, setShowPass]     = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [error, setError]             = useState('');
-  const [loading, setLoading]         = useState(false);
+  const [error, setError]           = useState('');
+  const [loading, setLoading]       = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -43,6 +43,7 @@ export default function SignupView({ setView, t }) {
     if (!/[A-Z]/.test(password)) return setError('Password must contain at least one uppercase letter');
     if (!/[0-9]/.test(password)) return setError('Password must contain at least one number');
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return setError('Password must contain at least one special character');
+
 
     setLoading(true);
     try {
@@ -85,7 +86,6 @@ export default function SignupView({ setView, t }) {
       )}
 
       <form onSubmit={handleSignup} className="space-y-4" autoComplete="off">
-
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('email')}</label>
           <div className="relative">
@@ -127,6 +127,25 @@ export default function SignupView({ setView, t }) {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full ltr:pl-10 rtl:pr-10 ltr:pr-11 rtl:pl-11 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
             />
+
+            <div className="text-xs mt-2">
+  <p className={password.length >= 6 ? 'text-green-500' : 'text-gray-500'}>
+    • At least 6 characters
+  </p>
+
+  <p className={/[A-Z]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
+    • One uppercase letter
+  </p>
+
+  <p className={/[0-9]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
+    • One number
+  </p>
+
+   <p className={/[!@#$%^&*(),.?":{}|<>]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
+    • One special character (@, #, $, etc.)
+  </p>
+
+</div>
             <Lock className="w-5 h-5 text-gray-400 absolute rtl:right-3 ltr:left-3 top-3.5 pointer-events-none" />
             <button
               type="button"
@@ -136,27 +155,11 @@ export default function SignupView({ setView, t }) {
               {showPass ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </button>
           </div>
-          <div className="text-xs mt-2 space-y-0.5">
-            <p className={password.length >= 6 ? 'text-green-500' : 'text-gray-500'}>
-              • At least 6 characters
-            </p>
-            <p className={/[A-Z]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
-              • One uppercase letter
-            </p>
-            <p className={/[0-9]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
-              • One number
-            </p>
-            <p className={/[!@#$%^&*(),.?":{}|<>]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
-              • One special character (@, #, $, etc.)
-            </p>
-          </div>
           <PasswordStrength password={password} t={t} />
         </div>
 
-        {/* Confirm Password */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('confirmPass')}</label>
-          {/* ✅ relative div بس للـ input والأيقونات */}
           <div className="relative">
             <input
               type={showConfirm ? 'text' : 'password'}

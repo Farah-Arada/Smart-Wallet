@@ -38,14 +38,14 @@ export default function LoginView({ setView = () => {}, setCurrentUser = () => {
         body:    JSON.stringify({ email, password }),
       });
       const data = await res.json();
-
+      
       if (!res.ok) {
         return setError(data.message || safeT('invalidCreds'));
       }
-
+      
       sessionStorage.setItem('pendingEmail', data.email || email);
       sessionStorage.setItem('pendingPassword', password);
-
+      
       setView('otp');
     } catch {
       setError('Network error — is the server running?');
@@ -56,7 +56,7 @@ export default function LoginView({ setView = () => {}, setCurrentUser = () => {
 
   return (
     <div className="max-w-md mx-auto mt-10 p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 transition-colors duration-300">
-
+      
       <div className="text-center mb-8">
         <div className="inline-flex bg-blue-600 p-3 rounded-2xl mb-4 shadow-lg shadow-blue-600/30">
           <Wallet className="w-10 h-10 text-white" />
@@ -67,7 +67,7 @@ export default function LoginView({ setView = () => {}, setCurrentUser = () => {
 
       {successMsg && (
         <div className="mb-5 p-3 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl text-sm font-semibold border border-green-200 dark:border-green-800 text-center flex items-center justify-center gap-2">
-          <span></span> {successMsg}
+         {successMsg}
         </div>
       )}
       {error && (
@@ -77,7 +77,6 @@ export default function LoginView({ setView = () => {}, setCurrentUser = () => {
       )}
 
       <form onSubmit={handleLogin} className="space-y-5" autoComplete="off">
-
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{safeT('email')}</label>
           <div className="relative">
@@ -107,14 +106,13 @@ export default function LoginView({ setView = () => {}, setCurrentUser = () => {
             <Lock className="w-5 h-5 text-gray-400 absolute rtl:right-3 ltr:left-3 top-3.5 pointer-events-none" />
             <button
               type="button"
-              tabIndex="-1"
               onClick={() => setShowPass(!showPass)}
               className="absolute rtl:left-3 ltr:right-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               {showPass ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </button>
           </div>
-
+          
           <div className="flex justify-end mt-2">
             <button
               type="button"
