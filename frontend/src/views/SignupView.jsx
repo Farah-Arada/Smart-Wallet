@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Mail, Lock, User, Eye, EyeOff, Loader2, Wallet } from 'lucide-react';
 
-import API from '../utils/api';
+const API = 'https://srv-d7kmh4km0tmc73aodc70.onrender.com/api';
 
 function PasswordStrength({ password, t }) {
   if (!password) return null;
@@ -24,7 +24,16 @@ function PasswordStrength({ password, t }) {
   );
 }
 
-export default function SignupView({ setView, t }) {
+export default function SignupView({ setView = () => {}, t = (k) => String(k) }) {
+  const safeT = (key) => {
+    try {
+      const val = typeof t === 'function' ? t(key) : key;
+      return (typeof val === 'object' && val !== null) ? String(key) : val;
+    } catch (e) {
+      return String(key);
+    }
+  };
+
   const [username, setUsername]     = useState('');
   const [email, setEmail]           = useState('');
   const [password, setPassword]     = useState('');
@@ -37,9 +46,9 @@ export default function SignupView({ setView, t }) {
   const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
-    if (password !== confirm) return setError(t('passMismatch'));
-    if (password.length < 6)  return setError(t('passShort') || 'Password must be at least 6 characters long');
-    if (!/\S+@\S+\.\S+/.test(email)) return setError(t('invalidEmail') || 'Invalid email address');
+    if (password !== confirm) return setError(safeT('passMismatch'));
+    if (password.length < 6)  return setError(safeT('passShort') || 'Password must be at least 6 characters long');
+    if (!/\S+@\S+\.\S+/.test(email)) return setError(safeT('invalidEmail') || 'Invalid email address');
     if (!/[A-Z]/.test(password)) return setError('Password must contain at least one uppercase letter');
     if (!/[0-9]/.test(password)) return setError('Password must contain at least one number');
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) return setError('Password must contain at least one special character');
@@ -55,8 +64,9 @@ export default function SignupView({ setView, t }) {
       const data = await res.json();
 
       if (!res.ok) {
-        if (res.status === 400) return setError(t('userExists'));
-        return setError(data.message || 'Server error');
+        if (res.status === 400) return setError(safeT('userExists'));
+        const errMsg = data.message || 'Server error';
+        return setError(typeof errMsg === 'object' ? JSON.stringify(errMsg) : errMsg);
       }
 
       sessionStorage.setItem('signupSuccess', 'true');
@@ -75,8 +85,8 @@ export default function SignupView({ setView, t }) {
         <div className="inline-flex bg-blue-600 p-3 rounded-2xl mb-4 shadow-lg shadow-blue-600/30">
           <Wallet className="w-10 h-10 text-white" />
         </div>
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{t('signup')}</h2>
-        <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">{t('appTitle')}</p>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{safeT('signup')}</h2>
+        <p className="text-gray-500 dark:text-gray-400 mt-2 text-sm">{safeT('appTitle')}</p>
       </div>
 
       {error && (
@@ -87,7 +97,7 @@ export default function SignupView({ setView, t }) {
 
       <form onSubmit={handleSignup} className="space-y-4" autoComplete="off">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('email')}</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{safeT('email')}</label>
           <div className="relative">
             <input
               type="email"
@@ -95,14 +105,14 @@ export default function SignupView({ setView, t }) {
               autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full ltr:pl-10 rtl:pr-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
+              className="w-full ps-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
             />
-            <Mail className="w-5 h-5 text-gray-400 absolute rtl:right-3 ltr:left-3 top-3.5 pointer-events-none" />
+            <Mail className="w-5 h-5 text-gray-400 absolute start-3 top-3.5 pointer-events-none" />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('username')}</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{safeT('username')}</label>
           <div className="relative">
             <input
               type="text"
@@ -110,14 +120,14 @@ export default function SignupView({ setView, t }) {
               autoComplete="off"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full ltr:pl-10 rtl:pr-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
+              className="w-full ps-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
             />
-            <User className="w-5 h-5 text-gray-400 absolute rtl:right-3 ltr:left-3 top-3.5 pointer-events-none" />
+            <User className="w-5 h-5 text-gray-400 absolute start-3 top-3.5 pointer-events-none" />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('password')}</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{safeT('password')}</label>
           <div className="relative">
             <input
               type={showPass ? 'text' : 'password'}
@@ -125,41 +135,41 @@ export default function SignupView({ setView, t }) {
               autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full ltr:pl-10 rtl:pr-10 ltr:pr-11 rtl:pl-11 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
+              className="w-full ps-10 pe-11 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all"
             />
 
             <div className="text-xs mt-2">
-  <p className={password.length >= 6 ? 'text-green-500' : 'text-gray-500'}>
-    • At least 6 characters
-  </p>
+              <p className={password.length >= 6 ? 'text-green-500' : 'text-gray-500'}>
+                • At least 6 characters
+              </p>
 
-  <p className={/[A-Z]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
-    • One uppercase letter
-  </p>
+              <p className={/[A-Z]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
+                • One uppercase letter
+              </p>
 
-  <p className={/[0-9]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
-    • One number
-  </p>
+              <p className={/[0-9]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
+                • One number
+              </p>
 
-   <p className={/[!@#$%^&*(),.?":{}|<>]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
-    • One special character (@, #, $, etc.)
-  </p>
+              <p className={/[!@#$%^&*(),.?":{}|<>]/.test(password) ? 'text-green-500' : 'text-gray-500'}>
+                • One special character (@, #, $, etc.)
+              </p>
 
-</div>
-            <Lock className="w-5 h-5 text-gray-400 absolute rtl:right-3 ltr:left-3 top-3.5 pointer-events-none" />
+            </div>
+            <Lock className="w-5 h-5 text-gray-400 absolute start-3 top-3.5 pointer-events-none" />
             <button
               type="button"
               onClick={() => setShowPass(!showPass)}
-              className="absolute rtl:left-3 ltr:right-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="absolute end-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               {showPass ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </button>
           </div>
-          <PasswordStrength password={password} t={t} />
+          <PasswordStrength password={password} t={safeT} />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{t('confirmPass')}</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{safeT('confirmPass')}</label>
           <div className="relative">
             <input
               type={showConfirm ? 'text' : 'password'}
@@ -167,23 +177,23 @@ export default function SignupView({ setView, t }) {
               autoComplete="new-password"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
-              className={`w-full ltr:pl-10 rtl:pr-10 ltr:pr-11 rtl:pl-11 p-3 bg-gray-50 dark:bg-gray-900 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all ${
+              className={`w-full ps-10 pe-11 p-3 bg-gray-50 dark:bg-gray-900 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-gray-900 dark:text-white transition-all ${
                 confirm && password !== confirm
                   ? 'border-red-400 dark:border-red-600'
                   : 'border-gray-200 dark:border-gray-700'
               }`}
             />
-            <Lock className="w-5 h-5 text-gray-400 absolute rtl:right-3 ltr:left-3 top-3.5 pointer-events-none" />
+            <Lock className="w-5 h-5 text-gray-400 absolute start-3 top-3.5 pointer-events-none" />
             <button
               type="button"
               onClick={() => setShowConfirm(!showConfirm)}
-              className="absolute rtl:left-3 ltr:right-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              className="absolute end-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               {showConfirm ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </button>
           </div>
           {confirm && password !== confirm && (
-            <p className="text-xs text-red-500 mt-1 font-medium">{t('passMismatch')}</p>
+            <p className="text-xs text-red-500 mt-1 font-medium">{safeT('passMismatch')}</p>
           )}
         </div>
 
@@ -193,15 +203,15 @@ export default function SignupView({ setView, t }) {
           className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-bold py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg hover:shadow-blue-600/25 flex items-center justify-center gap-2 mt-2"
         >
           {loading ? (
-            <><Loader2 className="w-5 h-5 animate-spin" /> <span>{t('signup')}...</span></>
-          ) : t('signup')}
+            <><Loader2 className="w-5 h-5 animate-spin" /> <span>{safeT('signup')}...</span></>
+          ) : safeT('signup')}
         </button>
       </form>
 
       <p className="mt-6 text-center text-gray-600 dark:text-gray-400 text-sm">
-        {t('haveAccount')}{' '}
+        {safeT('haveAccount')}{' '}
         <button onClick={() => setView('login')} className="text-blue-600 dark:text-blue-400 font-bold hover:underline mx-1">
-          {t('login')}
+          {safeT('login')}
         </button>
       </p>
     </div>
