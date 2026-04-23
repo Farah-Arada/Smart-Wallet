@@ -9,7 +9,6 @@ export default function TransactionForm({
   setEditingTx = () => {} 
 }) {
   
-
   const safeT = (key) => {
     try {
       const val = typeof t === 'function' ? t(key) : key;
@@ -119,9 +118,9 @@ export default function TransactionForm({
               step="0.01"
               value={formData.amount}
               onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-              className="w-full pe-12 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
+              className="w-full pe-12 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white leading-normal"
             />
-            <span className="absolute end-4 top-3.5 text-gray-500 font-medium">{safeT('currency')}</span>
+            <span className="absolute end-4 top-3.5 text-gray-500 font-medium pointer-events-none">{safeT('currency')}</span>
           </div>
         </div>
 
@@ -132,7 +131,7 @@ export default function TransactionForm({
             required
             value={formData.date}
             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-            className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
+            className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white leading-normal"
           />
         </div>
 
@@ -143,7 +142,7 @@ export default function TransactionForm({
             required
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
+            className="w-full p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white leading-normal"
           />
         </div>
 
@@ -155,9 +154,9 @@ export default function TransactionForm({
               required
               value={formData.location}
               onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-              className="w-full ps-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
+              className="w-full ps-10 p-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white leading-normal"
             />
-            <span className="absolute start-3 top-3.5 text-gray-400">{labels.icon}</span>
+            <span className="absolute start-3 top-3.5 text-gray-400 pointer-events-none">{labels.icon}</span>
           </div>
         </div>
 
