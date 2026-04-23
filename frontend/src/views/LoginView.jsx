@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Wallet, Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 
-const API = 'http://localhost:5000/api';
+import API from '../utils/api';
 
 export default function LoginView({ setView = () => {}, setCurrentUser = () => {}, t = (k) => String(k) }) {
   const safeT = (key) => {

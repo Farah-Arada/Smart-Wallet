@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, ArrowRight, Loader2, KeyRound } from 'lucide-react';
 
-const API = 'http://localhost:5000/api';
+import API from '../utils/api';
 
 export default function ForgotPasswordView({ setView = () => {}, t = (k) => String(k) }) {
   const safeT = (key) => {

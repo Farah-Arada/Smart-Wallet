@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { KeyRound, ArrowRight, Loader2, RefreshCw } from 'lucide-react';
 
-const API = 'http://localhost:5000/api';
+import API from '../utils/api';
 const RESEND_SECONDS = 60;
 
 export default function OTPView({ setView = () => {}, setCurrentUser = () => {}, t = (k) => String(k) }) {

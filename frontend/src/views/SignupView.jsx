@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Mail, Lock, User, Eye, EyeOff, Loader2, Wallet } from 'lucide-react';
 
-const API = 'http://localhost:5000/api';
+import API from '../utils/api';
 
 function PasswordStrength({ password, t }) {
   if (!password) return null;

@@ -4,7 +4,7 @@ import {
   PlusCircle, MapPin, Landmark, User, Pencil, X, Trash2, AlertTriangle
 } from 'lucide-react';
 
-const API = 'http://localhost:5000/api';
+import API from '../utils/api';
 
 const authHeader = () => ({
   'Content-Type': 'application/json',

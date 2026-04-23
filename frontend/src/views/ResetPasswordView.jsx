@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Lock, ArrowRight, Loader2, Eye, EyeOff } from 'lucide-react';
 
-const API = 'http://localhost:5000/api';
+import API from '../utils/api';
 
 export default function ResetPasswordView({ setView = () => {}, setCurrentUser = () => {}, t = (k) => String(k) }) {
   const safeT = (key) => {

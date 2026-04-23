@@ -4,7 +4,11 @@ const app = express();
 require("dotenv").config()
 const db = require("./models/db");
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://smart-wallet-lime.vercel.app',
+     credentials: true
+}
+));
 
 
 const userRouter = require("./routes/user");
@@ -16,7 +20,7 @@ app.use("/api/transactions", transactionRouter);
 
 
 
-const PORT = 5000;
+const PORT =  process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Example application listening at http://localhost:${PORT}`);
 });
