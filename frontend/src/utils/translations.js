@@ -99,7 +99,7 @@ const translations = {
     totalIncome: 'Total Income',
     totalExpense: 'Total Expenses',
     totalDebt: 'Outstanding Debt',
-    currency: 'USD',
+    currency: 'JD',
     consumption: 'Consumption Rate',
     consumptionDesc: 'Expense ratio out of total income',
     newTransaction: 'New Transaction',
