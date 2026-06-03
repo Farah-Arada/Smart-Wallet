@@ -5,10 +5,15 @@ require("dotenv").config()
 const db = require("./models/db");
 app.use(express.json());
 app.use(cors({
-    origin: 'https://smart-wallet-lime.vercel.app',
-     credentials: true
-}
-));
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 
 const userRouter = require("./routes/user");
